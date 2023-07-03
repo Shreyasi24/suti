@@ -1,0 +1,42 @@
+.hdr_mn_otr {
+  padding: 20px 0;
+}
+.container {
+  max-width: 1560px !important;
+}
+.logo {
+  width: 20%;
+}
+.hdr_mn_inr {
+  display: flex;
+  align-items: center;
+}
+.dropdown-toggle {
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+}
+.search_input input {
+  padding: 15px 40px;
+  background: url(../images/mg_glass.png) no-repeat;
+  background-position: 2% center;
+  border: none;
+  width: 870px;
+}
+.search_input {
+  border: 1px solid #a8a5a5;
+  font-size: 20px;
+}
+.search_content {
+  display: flex;
+  align-items: center;
+}
+.search_img input {
+  background: url(../images/sumbit_img.png) no-repeat;
+  background-position: 3% center;
+  border: 1px solid #ca0000;
+  padding: 18px 30px;
+}
+li {
+  list-style: none;
+}
