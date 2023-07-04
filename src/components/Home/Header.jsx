@@ -1,79 +1,81 @@
 import React from "react";
+import "../../App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Search from "./Search";
-import { dropdown } from "bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBagShopping,
-  faHeart,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { Dropdown } from "bootstrap";
 
 const Header = () => {
   return (
-    <>
-      <div className="hdr_mn_otr">
+    <div>
+      <header
+        className="hdr_mn_otr"
+        data-aos="zoom-out"
+        data-aos-easing="linear"
+        data-aos-duration="1000"
+      >
         <div className="container">
-          <div className="hdr_mn_inr">
-            <div className="logo">
-              <a href="#">
-                <img src={require("../../assets/images/logo.png")} alt="logo" />
-              </a>
-            </div>
-            <div className="hdr_content">
-              <div className="hdr_crncy">
-                <div className="dropdown">
-                  <button
-                    className="dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Choose Currency
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        India Currency
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        USA Currency
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+          <div className="logo">
+            <a href="#">
+              <img src={require("../../assets/images/logo.png")} alt="" />
+            </a>
+          </div>
+
+          <div className="hdr_otr">
+            <div className="crncy_optn">
+              <div className="dropdown">
+                <button
+                  className="dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Choose Currency
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <p>
+                        <span>India</span>
+                        <div className="crncy">
+                          <i className="fa-solid fa-indian-rupee-sign"></i>
+                        </div>
+                      </p>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <p>
+                        <span>USA</span>
+                        <div className="crncy">
+                          <i className="fa-solid fa-dollar-sign"></i>
+                        </div>
+                      </p>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
+
             <Search />
-            <div className="hdr_icons">
-              <ul>
-                <li>
-                  <a href="">
-                    <FontAwesomeIcon icon={faUser} />
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <FontAwesomeIcon icon={faHeart} />
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <FontAwesomeIcon icon={faBagShopping} />
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <FontAwesomeIcon />
-                  </a>
-                </li>
-              </ul>
+
+            <div className="crt_itm">
+              <a data-aos="fade-up" data-aos-duration="2000" href="#">
+                <img src={require("../../assets/images/cart-1.png")} alt="" />
+              </a>
+              <a data-aos="fade-down" data-aos-duration="2000" href="#">
+                <img src={require("../../assets/images/cart-2.png")} alt="" />
+              </a>
+              <a data-aos="fade-up" data-aos-duration="2000" href="#">
+                <img src={require("../../assets/images/cart-3.png")} alt="" />
+              </a>
+              <a data-aos="fade-down" data-aos-duration="2000" href="#">
+                <img src={require("../../assets/images/cart-4.png")} alt="" />
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </header>
+    </div>
   );
 };
 

@@ -3,17 +3,21 @@ import React from "react";
 const Search = () => {
   return (
     <div>
-      <div className="search_content">
-        <div className="search_input">
-          <input
-            type="text"
-            placeholder="Search for products, brand and more"
-          />
+      <form action="#">
+        <div className="inpt_bx">
+          <div className="inpt_bx_inr">
+            <input
+              type="text"
+              placeholder="Search for products, brand and more"
+              required
+            />
+          </div>
+
+          <div className="inpt_bx_inr">
+            <input type="submit" value="Image Search" />
+          </div>
         </div>
-        <div className="search_img">
-          <input type="text" placeholder="Image Search" />
-        </div>
-      </div>
+      </form>
     </div>
   );
 };

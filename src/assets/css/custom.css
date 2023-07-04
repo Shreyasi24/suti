@@ -1,42 +1,67 @@
-.hdr_mn_otr {
-  padding: 20px 0;
+html {
+  background-color: #fff;
+}
+a {
+  text-decoration: none !important;
+}
+.footer_box .cmn_hdr ul li a {
+  text-decoration: none;
+}
+#SeasonalTab .react-tabs__tab.react-tabs__tab--selected {
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px solid #cc0404;
+  color: #cc0404;
+}
+#SeasonalTab .react-tabs__tab {
+  border: none;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 1px solid #8c8c8c;
+  color: #8c8c8c;
 }
 .container {
   max-width: 1560px !important;
 }
-.logo {
-  width: 20%;
-}
-.hdr_mn_inr {
-  display: flex;
-  align-items: center;
-}
-.dropdown-toggle {
+#PopularTab .react-tabs__tab {
   border: none;
-  background-color: transparent;
-  font-size: 20px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 1px solid #8c8c8c;
+  color: #8c8c8c;
 }
-.search_input input {
-  padding: 15px 40px;
-  background: url(../images/mg_glass.png) no-repeat;
-  background-position: 2% center;
+
+#PopularTab .react-tabs__tab.react-tabs__tab--selected {
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px solid #cc0404;
+  color: #cc0404;
+}
+.react-tabs__tab-list {
+  border-bottom: none !important;
+}
+#OccasnTab .react-tabs__tab {
   border: none;
-  width: 870px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 1px solid #8c8c8c;
+  color: #8c8c8c;
 }
-.search_input {
-  border: 1px solid #a8a5a5;
-  font-size: 20px;
+#OccasnTab .react-tabs__tab.react-tabs__tab--selected {
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px solid #cc0404;
+  color: #cc0404;
 }
-.search_content {
-  display: flex;
-  align-items: center;
-}
-.search_img input {
-  background: url(../images/sumbit_img.png) no-repeat;
-  background-position: 3% center;
-  border: 1px solid #ca0000;
-  padding: 18px 30px;
-}
-li {
-  list-style: none;
+.offers .cmn_btn:hover {
+  border: 2px solid #000;
 }
