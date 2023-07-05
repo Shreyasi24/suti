@@ -1,11 +1,18 @@
 {
   "data": [
     {
-      "id": "45",
-      "name": "Ayan Dey",
-      "age": "23",
-      "password": "54545"
+      "name": "woolen embroidered straight long kurti",
+      "price": "$250",
+      "desc": " for sps members",
+      "image": [
+        "https://picsum.photos/230/300?random=2",
+        "https://picsum.photos/230/300?random=1",
+        "https://picsum.photos/230/300?random=4",
+        "https://picsum.photos/230/300?random=3",
+        "https://picsum.photos/230/300?random=9",
+        "https://picsum.photos/230/300?random=7",
+        "https://picsum.photos/230/300?random=8"
+      ]
     }
-    
   ]
 }

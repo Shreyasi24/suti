@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Navigation, Autoplay } from "swiper/modules";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 const SeasonalProduct = () => {
+  const [data, setData] = useState("");
   return (
     <div>
       <section className="ssnl_prdct_sec">
@@ -33,8 +35,19 @@ const SeasonalProduct = () => {
                         onSlideChange={() => console.log("slide change")}
                         onSwiper={(swiper) => console.log(swiper)}
                       >
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            <div>
+                              {image.map((img) => (
+                                <SwiperSlide>
+                                  <img src={img} alt="/" />
+                                  <h5>{name}</h5>
+                                  <h6>{price}</h6>
+                                </SwiperSlide>
+                              ))}
+                            </div>;
+                          })}
                         <SwiperSlide>
-                          {" "}
                           <div className="swpr_cntnt ">
                             <div className="img_otr">
                               <img

@@ -1,20 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useSwiper } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
+import axios from "axios";
 
 const Collection = () => {
-  const slides = [];
-
-  for (let i = 0; i < 5; i++) {
-    slides.push(
-      <SwiperSlide key={`slide-${i}`} style={{ listStyle: "none" }}>
-        <div className={`slide`}>
-          <h3>{i}</h3>
-        </div>
-      </SwiperSlide>
-    );
-  }
+  const [data, setData] = useState("");
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/data")
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div>
@@ -22,67 +19,27 @@ const Collection = () => {
         <div className="container">
           <div className="bnr_sld_otr aftr_bnr_sldr">
             <Swiper
+              modules={[Navigation, Autoplay]}
               spaceBetween={20}
               slidesPerView={5}
-              navigation
-              onSlideChange={() => console.log("slide change")}
-              onSwiper={(swiper) => console.log(swiper)}
+              loop={true}
+              autoplay={true}
+              navigation={{
+                nextEl: ".arrow-next",
+                prevEl: ".arrow-prev",
+              }}
             >
-              <SwiperSlide>
-                <div className="swpr_cntnt">
-                  <div className="img_otr">
-                    <img
-                      src={require("../../assets/images/slide_1.png")}
-                      alt=""
-                    />
+              {data &&
+                data.map(({ name, image }) => (
+                  <div>
+                    {image.map((img) => (
+                      <SwiperSlide>
+                        <img src={img} alt="/" />
+                        <h6>{name}</h6>
+                      </SwiperSlide>
+                    ))}
                   </div>
-                  {slides}
-                </div>
-              </SwiperSlide>
-              {/* <SwiperSlide>
-                <div className="swpr_cntnt">
-                  <div className="img_otr">
-                    <img
-                      src={require("../../assets/images/slide_2.png")}
-                      alt=""
-                    />
-                  </div>
-                  <h6>top & tunics</h6>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="swpr_cntnt">
-                  <div className="img_otr">
-                    <img
-                      src={require("../../assets/images/slide_3.png")}
-                      alt=""
-                    />
-                  </div>
-                  <h6>Jewellery</h6>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="swpr_cntnt">
-                  <div className="img_otr">
-                    <img
-                      src={require("../../assets/images/slide_4.png")}
-                      alt=""
-                    />
-                  </div>
-                  <h6>dress</h6>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="swpr_cntnt">
-                  <div className="img_otr">
-                    <img
-                      src={require("../../assets/images/slide_5.png")}
-                      alt=""
-                    />
-                  </div>
-                  <h6>kurta set</h6>
-                </div>
-              </SwiperSlide> */}
+                ))}
             </Swiper>
             <div className="swpr_arrws">
               <div className="arrow-next">

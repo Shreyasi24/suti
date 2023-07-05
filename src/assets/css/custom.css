@@ -65,3 +65,19 @@ a {
 .offers .cmn_btn:hover {
   border: 2px solid #000;
 }
+.img_otr {
+  position: relative;
+}
+.bnr_cntnt {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}

@@ -7,7 +7,10 @@ const Banner = () => {
         <div className="container">
           <div className="img_otr" data-aos="zoom-in" data-aos-duration="2000">
             <div className="bnr-img">
-              <img src="../../assets/images/banner.png" alt="bnr-img" />
+              <img
+                src={require("../../assets/images/banner.png")}
+                alt="bnr-img"
+              />
             </div>
             <div className="bnr_cntnt">
               <h1>
