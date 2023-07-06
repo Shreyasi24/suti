@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Navigation } from "swiper/modules";
+import axios from "axios";
+import { url } from "./Url";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 const ShopOccassion = () => {
+  const [data, setData] = useState("");
+  const [tabdata, setTabdata] = useState("");
+  const [activeTab, setActiveTab] = useState(0);
+  const [filteroptions, setFilterOptions] = useState([]);
+  axios
+    .get("http://localhost:6000/data")
+    .then((res) => console.log(res.data, "info"))
+    .catch((err) => console.log(err));
+  axios
+    .get(url)
+    .then((res) => setData(res.data))
+    .catch((err) => console.log(err));
+  const handleChange = (index) => {
+    setActiveTab(index);
+  };
   return (
     <div>
       <section className="ssnl_prdct_sec occsn_tab_sec">
@@ -17,102 +37,54 @@ const ShopOccassion = () => {
             <div id="OccasnTab">
               <Tabs>
                 <TabList className="resp-tabs-list tab_list">
-                  <Tab>All</Tab>
+                  {data &&
+                    data.map(({ title }) => {
+                      return <Tab onClick={() => handleChange()}>{title}</Tab>;
+                    })}
+
+                  {/* <Tab>All</Tab>
                   <Tab>Office</Tab>
                   <Tab>Daily</Tab>
                   <Tab>Party</Tab>
-                  <Tab>Festiv</Tab>
+                  <Tab>Festiv</Tab> */}
                 </TabList>
 
                 <TabPanel>
                   <div className="occsn_tab_cntnt">
                     <div className="occsn_sld_otr occsn_sldr ">
                       <Swiper
-                        spaceBetween={50}
+                        modules={[Navigation]}
+                        spaceBetween={20}
                         slidesPerView={4}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
+                        navigation={{
+                          nextEl: ".occsn-arrow-next",
+                          prevEl: ".occsn-arrow-prev",
+                        }}
                       >
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img1.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            return (
+                              <div>
+                                {image.map((img) => (
+                                  <SwiperSlide>
+                                    <div className="swpr_cntnt">
+                                      <div className="img_otr">
+                                        <img src={img} alt="/" />
+                                        <div className="heart">
+                                          <FontAwesomeIcon icon={faHeart} />
+                                        </div>
+                                      </div>
+                                      <div className="btm_itm_dtls">
+                                        <h5>{name}</h5>
+                                        <h6>{price}</h6>
+                                        <p>{desc}</p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
                               </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>SOLID STRAIGHT KURTI</h5>
-                              <h6>₹799</h6>
-                              <p>₹719.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img2.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                BEAUTIFUL PRINTED DRESS EMBELLISHED WITH...
-                              </h5>
-                              <h6>₹1999</h6>
-                              <p>₹1,799.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img3.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                FESTIVE WEAR KALIDAR LONG KURTI LAHARIYA ...
-                              </h5>
-                              <h6>₹7,606.65</h6>
-                              <p>₹7,226.32 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img4.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>PARTY WEAR LONG KURTI WITH MIRROR...</h5>
-                              <h6>₹2799.30</h6>
-                              <p>₹2,659.34 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                       <div className="occsn_swpr_arrws">
                         <div className="occsn-arrow-next">
@@ -135,91 +107,38 @@ const ShopOccassion = () => {
                   <div className="occsn_tab_cntnt">
                     <div className="occsn_sld_otr occsn_sldr ">
                       <Swiper
-                        spaceBetween={50}
+                        modules={[Navigation]}
+                        spaceBetween={20}
                         slidesPerView={4}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
+                        navigation={{
+                          nextEl: ".occsn-arrow-next",
+                          prevEl: ".occsn-arrow-prev",
+                        }}
                       >
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img2.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            return (
+                              <div>
+                                {image.map((img) => (
+                                  <SwiperSlide>
+                                    <div className="swpr_cntnt">
+                                      <div className="img_otr">
+                                        <img src={img} alt="/" />
+                                        <div className="heart">
+                                          <FontAwesomeIcon icon={faHeart} />
+                                        </div>
+                                      </div>
+                                      <div className="btm_itm_dtls">
+                                        <h5>{name}</h5>
+                                        <h6>{price}</h6>
+                                        <p>{desc}</p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
                               </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>SOLID STRAIGHT KURTI</h5>
-                              <h6>₹799</h6>
-                              <p>₹719.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img1.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                BEAUTIFUL PRINTED DRESS EMBELLISHED WITH...
-                              </h5>
-                              <h6>₹1999</h6>
-                              <p>₹1,799.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img4.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                FESTIVE WEAR KALIDAR LONG KURTI LAHARIYA ...
-                              </h5>
-                              <h6>₹7,606.65</h6>
-                              <p>₹7,226.32 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img3.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>PARTY WEAR LONG KURTI WITH MIRROR...</h5>
-                              <h6>₹2799.30</h6>
-                              <p>₹2,659.34 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                       <div className="occsn_swpr_arrws">
                         <div className="occsn-arrow-next">
@@ -242,91 +161,38 @@ const ShopOccassion = () => {
                   <div className="occsn_tab_cntnt">
                     <div className="occsn_sld_otr occsn_sldr ">
                       <Swiper
-                        spaceBetween={50}
+                        modules={[Navigation]}
+                        spaceBetween={20}
                         slidesPerView={4}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
+                        navigation={{
+                          nextEl: ".occsn-arrow-next",
+                          prevEl: ".occsn-arrow-prev",
+                        }}
                       >
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img4.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            return (
+                              <div>
+                                {image.map((img) => (
+                                  <SwiperSlide>
+                                    <div className="swpr_cntnt">
+                                      <div className="img_otr">
+                                        <img src={img} alt="/" />
+                                        <div className="heart">
+                                          <FontAwesomeIcon icon={faHeart} />
+                                        </div>
+                                      </div>
+                                      <div className="btm_itm_dtls">
+                                        <h5>{name}</h5>
+                                        <h6>{price}</h6>
+                                        <p>{desc}</p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
                               </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>SOLID STRAIGHT KURTI</h5>
-                              <h6>₹799</h6>
-                              <p>₹719.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img1.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                BEAUTIFUL PRINTED DRESS EMBELLISHED WITH...
-                              </h5>
-                              <h6>₹1999</h6>
-                              <p>₹1,799.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img2.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                FESTIVE WEAR KALIDAR LONG KURTI LAHARIYA ...
-                              </h5>
-                              <h6>₹7,606.65</h6>
-                              <p>₹7,226.32 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img3.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>PARTY WEAR LONG KURTI WITH MIRROR...</h5>
-                              <h6>₹2799.30</h6>
-                              <p>₹2,659.34 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                       <div className="occsn_swpr_arrws">
                         <div className="occsn-arrow-next">
@@ -349,91 +215,38 @@ const ShopOccassion = () => {
                   <div className="occsn_tab_cntnt">
                     <div className="occsn_sld_otr occsn_sldr ">
                       <Swiper
-                        spaceBetween={50}
+                        modules={[Navigation]}
+                        spaceBetween={20}
                         slidesPerView={4}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
+                        navigation={{
+                          nextEl: ".occsn-arrow-next",
+                          prevEl: ".occsn-arrow-prev",
+                        }}
                       >
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img4.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            return (
+                              <div>
+                                {image.map((img) => (
+                                  <SwiperSlide>
+                                    <div className="swpr_cntnt">
+                                      <div className="img_otr">
+                                        <img src={img} alt="/" />
+                                        <div className="heart">
+                                          <FontAwesomeIcon icon={faHeart} />
+                                        </div>
+                                      </div>
+                                      <div className="btm_itm_dtls">
+                                        <h5>{name}</h5>
+                                        <h6>{price}</h6>
+                                        <p>{desc}</p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
                               </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>SOLID STRAIGHT KURTI</h5>
-                              <h6>₹799</h6>
-                              <p>₹719.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img3.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                BEAUTIFUL PRINTED DRESS EMBELLISHED WITH...
-                              </h5>
-                              <h6>₹1999</h6>
-                              <p>₹1,799.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img1.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                FESTIVE WEAR KALIDAR LONG KURTI LAHARIYA ...
-                              </h5>
-                              <h6>₹7,606.65</h6>
-                              <p>₹7,226.32 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img2.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>PARTY WEAR LONG KURTI WITH MIRROR...</h5>
-                              <h6>₹2799.30</h6>
-                              <p>₹2,659.34 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                       <div className="occsn_swpr_arrws">
                         <div className="occsn-arrow-next">
@@ -456,91 +269,38 @@ const ShopOccassion = () => {
                   <div className="occsn_tab_cntnt">
                     <div className="occsn_sld_otr occsn_sldr ">
                       <Swiper
-                        spaceBetween={50}
+                        modules={[Navigation]}
+                        spaceBetween={20}
                         slidesPerView={4}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
+                        navigation={{
+                          prevEl: ".occsn-arrow-prev",
+                          nextEl: ".occsn-arrow-next",
+                        }}
                       >
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img2.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            return (
+                              <div>
+                                {image.map((img) => (
+                                  <SwiperSlide>
+                                    <div className="swpr_cntnt">
+                                      <div className="img_otr">
+                                        <img src={img} alt="/" />
+                                        <div className="heart">
+                                          <FontAwesomeIcon icon={faHeart} />
+                                        </div>
+                                      </div>
+                                      <div className="btm_itm_dtls">
+                                        <h5>{name}</h5>
+                                        <h6>{price}</h6>
+                                        <p>{desc}</p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
                               </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>SOLID STRAIGHT KURTI</h5>
-                              <h6>₹799</h6>
-                              <p>₹719.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img4.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                BEAUTIFUL PRINTED DRESS EMBELLISHED WITH...
-                              </h5>
-                              <h6>₹1999</h6>
-                              <p>₹1,799.10 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img1.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                FESTIVE WEAR KALIDAR LONG KURTI LAHARIYA ...
-                              </h5>
-                              <h6>₹7,606.65</h6>
-                              <p>₹7,226.32 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/s_occasion_img3.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>PARTY WEAR LONG KURTI WITH MIRROR...</h5>
-                              <h6>₹2799.30</h6>
-                              <p>₹2,659.34 for sps members</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                       <div className="occsn_swpr_arrws">
                         <div className="occsn-arrow-next">

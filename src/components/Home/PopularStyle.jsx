@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import axios from "axios";
+import { url } from "./Url";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 const PopularStyle = () => {
+  const [data, setData] = useState("");
+  axios
+    .get(url)
+    .then((res) => setData(res.data))
+    .catch((err) => console.log(err));
   return (
     <div>
       <section className="ssnl_prdct_sec pplr_styl_sec">
@@ -28,82 +38,38 @@ const PopularStyle = () => {
                       <Swiper
                         spaceBetween={20}
                         slidesPerView={3}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
+                        modules={[Navigation]}
+                        loop={true}
+                        autoplay={true}
+                        navigation={{
+                          nextEl: ".pplr-arrow-next",
+                          prevEl: ".pplr-arrow-prev",
+                        }}
                       >
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img1.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            return (
+                              <div>
+                                {image.map((img) => (
+                                  <SwiperSlide>
+                                    <div className="swpr_cntnt">
+                                      <div className="img_otr">
+                                        <img src={img} alt="/" />
+                                        <div className="heart">
+                                          <FontAwesomeIcon icon={faHeart} />
+                                        </div>
+                                      </div>
+                                      <div className="btm_itm_dtls">
+                                        <h5>{name}</h5>
+                                        <h6>{price}</h6>
+                                        <p>{desc}</p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
                               </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>PRINTED A LINE LONG DRESS</h5>
-                              <h6>
-                                <del>₹1999</del>₹1,599.20
-                              </h6>
-                              <p>
-                                <del>₹1,599.20</del>
-                                <span>₹1,519.24</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img2.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>embroidered kurta set</h5>
-                              <h6>
-                                <del>₹4899</del>₹3,919.20
-                              </h6>
-                              <p>
-                                <del>₹3,919.20</del>
-                                <span>₹3,324.34</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img3.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                Block Printed Kurta Set with Kota Doria Dupatta
-                              </h5>
-                              <h6>
-                                <del>₹4999</del>₹3,499.30
-                              </h6>
-                              <p>
-                                <del>₹3,499.30</del>
-                                <span>₹3,324.34</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                       <div className="pplr_swpr_arrws">
                         <div className="pplr-arrow-next">
@@ -124,86 +90,42 @@ const PopularStyle = () => {
                 </TabPanel>
                 <TabPanel>
                   <div className="pplr_tab_cntnt">
-                    <div className="pplr_sld_otr">
+                    <div className="pplr_sld_otr pplr_sldr">
                       <Swiper
                         spaceBetween={20}
                         slidesPerView={3}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
+                        modules={[Navigation]}
+                        loop={true}
+                        autoplay={true}
+                        navigation={{
+                          nextEl: ".pplr-arrow-next",
+                          prevEl: ".pplr-arrow-prev",
+                        }}
                       >
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img2.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            return (
+                              <div>
+                                {image.map((img) => (
+                                  <SwiperSlide>
+                                    <div className="swpr_cntnt">
+                                      <div className="img_otr">
+                                        <img src={img} alt="/" />
+                                        <div className="heart">
+                                          <FontAwesomeIcon icon={faHeart} />
+                                        </div>
+                                      </div>
+                                      <div className="btm_itm_dtls">
+                                        <h5>{name}</h5>
+                                        <h6>{price}</h6>
+                                        <p>{desc}</p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
                               </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>PRINTED A LINE LONG DRESS</h5>
-                              <h6>
-                                <del>₹1999</del>₹1,599.20
-                              </h6>
-                              <p>
-                                <del>₹1,599.20</del>
-                                <span>₹1,519.24</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img3.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>embroidered kurta set</h5>
-                              <h6>
-                                <del>₹4899</del>₹3,919.20
-                              </h6>
-                              <p>
-                                <del>₹3,919.20</del>
-                                <span>₹3,324.34</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img1.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                Block Printed Kurta Set with Kota Doria Dupatta
-                              </h5>
-                              <h6>
-                                <del>₹4999</del>₹3,499.30
-                              </h6>
-                              <p>
-                                <del>₹3,499.30</del>
-                                <span>₹3,324.34</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                       <div className="pplr_swpr_arrws">
                         <div className="pplr-arrow-next">
@@ -224,86 +146,42 @@ const PopularStyle = () => {
                 </TabPanel>
                 <TabPanel>
                   <div className="pplr_tab_cntnt">
-                    <div className="pplr_sld_otr">
+                    <div className="pplr_sld_otr pplr_sldr">
                       <Swiper
                         spaceBetween={20}
                         slidesPerView={3}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
+                        modules={[Navigation]}
+                        loop={true}
+                        autoplay={true}
+                        navigation={{
+                          nextEl: ".pplr-arrow-next",
+                          prevEl: ".pplr-arrow-prev",
+                        }}
                       >
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img3.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
+                        {data &&
+                          data.map(({ name, price, desc, image }) => {
+                            return (
+                              <div>
+                                {image.map((img) => (
+                                  <SwiperSlide>
+                                    <div className="swpr_cntnt">
+                                      <div className="img_otr">
+                                        <img src={img} alt="/" />
+                                        <div className="heart">
+                                          <FontAwesomeIcon icon={faHeart} />
+                                        </div>
+                                      </div>
+                                      <div className="btm_itm_dtls">
+                                        <h5>{name}</h5>
+                                        <h6>{price}</h6>
+                                        <p>{desc}</p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
                               </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>PRINTED A LINE LONG DRESS</h5>
-                              <h6>
-                                <del>₹1999</del>₹1,599.20
-                              </h6>
-                              <p>
-                                <del>₹1,599.20</del>
-                                <span>₹1,519.24</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          {" "}
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img1.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>embroidered kurta set</h5>
-                              <h6>
-                                <del>₹4899</del>₹3,919.20
-                              </h6>
-                              <p>
-                                <del>₹3,919.20</del>
-                                <span>₹3,324.34</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <div className="swpr_cntnt">
-                            <div className="img_otr">
-                              <img
-                                src={require("../../assets/images/popular_img2.png")}
-                                alt=""
-                              />
-                              <div className="heart">
-                                <i className="fa-regular fa-heart"></i>
-                              </div>
-                            </div>
-                            <div className="btm_itm_dtls">
-                              <h5>
-                                Block Printed Kurta Set with Kota Doria Dupatta
-                              </h5>
-                              <h6>
-                                <del>₹4999</del>₹3,499.30
-                              </h6>
-                              <p>
-                                <del>₹3,499.30</del>
-                                <span>₹3,324.34</span> for sps members
-                              </p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                       <div className="pplr_swpr_arrws">
                         <div className="pplr-arrow-next">

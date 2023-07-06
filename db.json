@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "title": "daily",
+      "name": "woolen embroidered straight long kurti",
+      "price": "$250",
+      "desc": " for spa members",
+      "image": [
+        "https://picsum.photos/230/300?random=2",
+        "https://picsum.photos/230/300?random=1",
+        "https://picsum.photos/230/300?random=4",
+        "https://picsum.photos/230/300?random=3",
+        "https://picsum.photos/230/300?random=9",
+        "https://picsum.photos/230/300?random=7",
+        "https://picsum.photos/230/300?random=8"
+      ]
+    },
+    {
+      "title": "party",
+      "name": "long dress",
+      "price": "$100",
+      "desc": " for spa members",
+      "image": [
+        "https://picsum.photos/230/300?random=4",
+        "https://picsum.photos/230/300?random=1",
+        "https://picsum.photos/230/300?random=4"
+      ]
+    },
+    {
+      "title": "office",
+      "name": "regular wear",
+      "price": "$650",
+      "desc": " for spa members",
+      "image": [
+        "https://picsum.photos/230/300?random=4",
+        "https://picsum.photos/230/300?random=1",
+        "https://picsum.photos/230/300?random=4",
+        "https://picsum.photos/230/300?random=6",
+        "https://picsum.photos/230/300?random=8",
+        "https://picsum.photos/230/300?random=2"
+      ]
+    },
+    {
+      "title": "festiv",
+      "name": "saree",
+      "price": "$350",
+      "desc": " for spa members",
+      "image": [
+        "https://picsum.photos/230/300?random=7",
+        "https://picsum.photos/230/300?random=3",
+        "https://picsum.photos/230/300?random=5",
+        "https://picsum.photos/230/300?random=10"
+      ]
+    }
+  ]
+}
